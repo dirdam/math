@@ -667,6 +667,14 @@
             text-decoration: underline;
         }
 
+        footer a.source-link svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+            vertical-align: -2px;
+            margin-right: 3px;
+        }
+
         @media screen and (max-width: 860px) {
             .main-grid {
                 grid-template-columns: 1fr;
@@ -868,6 +876,8 @@
                 <a href="https://dirdam.github.io" target="_blank" rel="noopener noreferrer">Adri&aacute;n Jim&eacute;nez Pascual</a>
                 &middot;
                 <a href="https://dirdam.squadro.app" target="_blank" rel="noopener noreferrer" data-i18n="seeMoreTools">See more tools</a>
+                &middot;
+                <a href="https://github.com/dirdam/math/tree/main/predator-prey" target="_blank" rel="noopener noreferrer" class="source-link"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg><span data-i18n="viewSource">View source</span></a>
             </p>
         </footer>
     </div>
@@ -921,10 +931,11 @@
                 howToInterpretHtml1: 'The top chart plots both populations against time. Watch how a rise in <strong>prey</strong> is always followed &mdash; a little later &mdash; by a rise in <strong>predators</strong>, who then overhunt the prey until food runs short and their own numbers fall too. That lag between cause and effect is what keeps the whole system oscillating instead of settling down.',
                 howToInterpretHtml2: 'The bottom chart tells the same story a different way: instead of time on the horizontal axis, it plots <strong>predators</strong> against <strong>prey</strong> directly, so each moment becomes a single point. As the two populations rise and fall together, that point traces a closed loop &mdash; a <strong>cycle</strong> &mdash; over and over, with the bright dot marking where the system is right now. A wider loop means bigger swings between boom and bust; a small loop close to the center means both populations are hovering near their natural balance.',
                 seeMoreTools: 'See more tools',
+                viewSource: 'View source',
             },
             es: {
-                browserTabTitle: 'Depredador-Presa',
-                pageTitle: 'Depredador-Presa',
+                browserTabTitle: 'Depredador-presa',
+                pageTitle: 'Depredador-presa',
                 subtitle: 'Las ecuaciones de Lotka-Volterra detrás de todo ciclo depredador-presa',
                 introHtml: 'Dos poblaciones atrapadas en un bucle de retroalimentación: las <strong>presas</strong> crecen por su cuenta, pero los <strong>depredadores</strong> las reducen — y los depredadores, a su vez, dependen por completo de comer presas para crecer. Cambia cualquiera de las cuatro tasas de la derecha (<strong>α</strong> crecimiento de las presas, <strong>β</strong> depredación, <strong>γ</strong> muerte de los depredadores, <strong>δ</strong> crecimiento de los depredadores) y observa cómo ambas poblaciones se asientan en un nuevo ritmo.',
                 alphaLabel: 'Tasa crecimiento presa (α)',
@@ -960,6 +971,7 @@
                 howToInterpretHtml1: 'El gráfico superior muestra ambas poblaciones a lo largo del tiempo. Observa cómo un aumento de las <strong>presas</strong> siempre va seguido — un poco después — de un aumento de los <strong>depredadores</strong>, que a su vez sobreexplotan a las presas hasta que escasea el alimento y su propio número también cae. Ese desfase entre causa y efecto es lo que mantiene todo el sistema oscilando en lugar de estabilizarse.',
                 howToInterpretHtml2: 'El gráfico inferior cuenta la misma historia de otra forma: en vez de poner el tiempo en el eje horizontal, representa a los <strong>depredadores</strong> frente a las <strong>presas</strong> directamente, de modo que cada instante se convierte en un único punto. A medida que ambas poblaciones suben y bajan juntas, ese punto traza un bucle cerrado — un <strong>ciclo</strong> — una y otra vez, con el punto brillante marcando dónde se encuentra el sistema ahora mismo. Un bucle más amplio significa oscilaciones más marcadas entre auge y colapso; un bucle pequeño cerca del centro indica que ambas poblaciones se mantienen cerca de su equilibrio natural.',
                 seeMoreTools: 'Ver más herramientas',
+                viewSource: 'Ver código fuente',
             },
             ja: {
                 browserTabTitle: '捕食者と被食者',
@@ -999,6 +1011,7 @@
                 howToInterpretHtml1: '上のグラフは、両方の個体数を時間の経過とともに示しています。<strong>被食者</strong>が増えると、少し遅れて必ず<strong>捕食者</strong>が増え、今度は捕食者が被食者を獲りすぎて食料が不足し、捕食者の数も減っていく様子に注目してください。この原因と結果の間の時間差こそが、システムを安定させず振動させ続ける理由です。',
                 howToInterpretHtml2: '下のグラフは同じ物語を別の方法で伝えています。横軸に時間を置く代わりに、<strong>捕食者</strong>と<strong>被食者</strong>を直接プロットするため、各瞬間が1つの点になります。両方の個体数がともに増減するにつれて、その点は同じ<strong>周期</strong>の閉じたループを何度も描きます。明るい点が現在のシステムの状態を示しています。ループが大きいほど好況と不況の振れ幅が大きく、中心に近い小さなループは両方の個体数が自然な均衡の近くにとどまっていることを意味します。',
                 seeMoreTools: '他のツールを見る',
+                viewSource: 'ソースを見る',
             },
         };
 
