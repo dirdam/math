@@ -540,6 +540,14 @@
             text-decoration: underline;
         }
 
+        footer a.source-link svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+            vertical-align: -2px;
+            margin-right: 3px;
+        }
+
         @media screen and (max-width: 860px) {
             .main-grid {
                 grid-template-columns: 1fr;
@@ -670,6 +678,8 @@
                 <a href="https://dirdam.github.io" target="_blank" rel="noopener noreferrer">Adri&aacute;n Jim&eacute;nez Pascual</a>
                 &middot;
                 <a href="https://dirdam.squadro.app" target="_blank" rel="noopener noreferrer" data-i18n="seeMoreTools">See more tools</a>
+                &middot;
+                <a href="https://github.com/dirdam/math/tree/main/stroboscopic-effect" target="_blank" rel="noopener noreferrer" class="source-link"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg><span data-i18n="viewSource">View source</span></a>
             </p>
         </footer>
     </div>
@@ -711,10 +721,11 @@
                 howToInterpretHtml1: 'The left wheel always spins at its <strong>real, continuous speed</strong>, no matter what the strobe is doing. The right wheel only updates at each <strong>strobe flash</strong> (the instants where the wheel is actually seen by the eye or a camera sensor under a flickering light.)',
                 howToInterpretHtml2: 'Because the spokes are identical, the wheel looks exactly the same every <strong>1&frasl;N</strong> of a turn, so what matters isn\'t the strobe frequency versus the wheel\'s rotation speed, it\'s the strobe frequency versus that faster repeating <strong>pattern</strong>. Match them closely and the wheel appears to freeze; drift the strobe rate up or down by a little and it creeps forward or slides into reverse.',
                 seeMoreTools: 'See more tools',
+                viewSource: 'View source',
             },
             es: {
-                browserTabTitle: 'Efecto Estroboscópico',
-                pageTitle: 'Efecto Estroboscópico',
+                browserTabTitle: 'Efecto estroboscópico',
+                pageTitle: 'Efecto estroboscópico',
                 subtitle: 'Por qué las ruedas giratorias parecen congelarse, ralentizarse o invertirse',
                 introHtml: 'Una rueda con <strong>N radios idénticos</strong> repite su propia apariencia N veces por vuelta, así que lo que una luz estroboscópica &mdash; o la frecuencia de fotogramas de una cámara de vídeo &mdash; realmente capta es ese <strong>patrón</strong> repetido, no el giro real de la rueda. Cambia el número de radios, la velocidad de giro o la frecuencia del estroboscopio a continuación y observa cómo la rueda de la derecha parece <strong>congelarse, avanzar lentamente o girar hacia atrás</strong>, aunque la rueda real de la izquierda nunca lo haga.',
                 legendTrueRotation: 'Rotación real',
@@ -737,6 +748,7 @@
                 howToInterpretHtml1: 'La rueda de la izquierda siempre gira a su <strong>velocidad real y continua</strong>, sin importar lo que haga el estroboscopio. La rueda de la derecha sólo se actualiza en cada <strong>destello estroboscópico</strong> (los instantes en los que el ojo o el sensor de una cámara realmente ven la rueda bajo una luz parpadeante).',
                 howToInterpretHtml2: 'Como los radios son idénticos, la rueda se ve exactamente igual cada <strong>1&frasl;N</strong> de vuelta, así que lo que importa no es la frecuencia del estroboscopio frente a la velocidad de giro de la rueda, sino la frecuencia del estroboscopio frente a ese <strong>patrón</strong> que se repite más rápido. Si coinciden de cerca, la rueda parece congelarse; si desplazas un poco la frecuencia del estroboscopio hacia arriba o hacia abajo, avanza lentamente o retrocede.',
                 seeMoreTools: 'Ver más herramientas',
+                viewSource: 'Ver código fuente',
             },
             ja: {
                 browserTabTitle: 'ストロボ効果',
@@ -763,6 +775,7 @@
                 howToInterpretHtml1: '左の車輪は、ストロボが何をしていても常に<strong>実際の連続した速度</strong>で回転しています。右の車輪は<strong>ストロボの閃光</strong>が起きた瞬間にしか更新されません(それは、点滅する光の下で人の目やカメラのセンサーが実際に車輪を見ている瞬間です)。',
                 howToInterpretHtml2: 'スポークはどれも同じ形なので、車輪は<strong>1&frasl;N</strong>回転するごとに全く同じ見た目になります。つまり重要なのは、ストロボの周波数と車輪の回転速度の関係ではなく、ストロボの周波数とこのより速く繰り返される<strong>パターン</strong>との関係です。両者が近ければ車輪は静止して見え、ストロボの周波数を少しだけ上下にずらすと、ゆっくり前に進んだり、逆回転しているように見えたりします。',
                 seeMoreTools: '他のツールを見る',
+                viewSource: 'ソースを見る',
             },
         };
 
