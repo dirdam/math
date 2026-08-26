@@ -552,6 +552,14 @@
             text-decoration: underline;
         }
 
+        footer a.source-link svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+            vertical-align: -2px;
+            margin-right: 3px;
+        }
+
         @media screen and (max-width: 860px) {
             .main-grid {
                 grid-template-columns: 1fr;
@@ -755,6 +763,8 @@
                 <a href="https://dirdam.github.io" target="_blank" rel="noopener noreferrer">Adri&aacute;n Jim&eacute;nez Pascual</a>
                 &middot;
                 <a href="https://dirdam.squadro.app" target="_blank" rel="noopener noreferrer" data-i18n="seeMoreTools">See more tools</a>
+                &middot;
+                <a href="https://github.com/dirdam/math/tree/main/double-pendulum" target="_blank" rel="noopener noreferrer" class="source-link"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg><span data-i18n="viewSource">View source</span></a>
             </p>
         </footer>
     </div>
@@ -805,10 +815,11 @@
                 howToInterpretHtml1: "Both pendulums obey the exact same deterministic equations, with the exact same masses, lengths, and gravity &mdash; the only difference between them is the tiny starting-angle gap set by <strong>Initial angle difference</strong> below. For a while they swing together almost perfectly. Then, seemingly out of nowhere, their outer bobs (the trailing dots) start tracing completely different paths.",
                 howToInterpretHtml2: 'This is the hallmark of a <strong>chaotic system</strong>: not that it\'s random, but that arbitrarily small differences in starting conditions grow exponentially over time, making long-term prediction practically impossible even though every step of the motion is fully determined. Try the <strong>Gentle</strong> preset for contrast &mdash; at small angles, a double pendulum barely diverges at all.',
                 seeMoreTools: 'See more tools',
+                viewSource: 'View source',
             },
             es: {
-                browserTabTitle: 'Péndulo Doble',
-                pageTitle: 'Péndulo Doble',
+                browserTabTitle: 'Péndulo doble',
+                pageTitle: 'Péndulo doble',
                 subtitle: 'Cómo una diferencia mínima en el ángulo inicial se convierte en total impredecibilidad',
                 introHtml: 'Un péndulo doble &mdash; una varilla que oscila colgada de otra &mdash; es un sistema sorprendentemente <strong>caótico</strong>: nada en sus ecuaciones es aleatorio, y sin embargo su futuro es casi imposible de predecir. A continuación, dos péndulos dobles idénticos parten casi exactamente juntos, difiriendo solo en una fracción de grado en un ángulo inicial. <strong>Observa cómo sus trayectorias se separan.</strong>',
                 legendSystemA: 'Sistema A',
@@ -844,6 +855,7 @@
                 howToInterpretHtml1: 'Ambos péndulos obedecen exactamente las mismas ecuaciones deterministas, con las mismas masas, longitudes y gravedad &mdash; la única diferencia entre ellos es la pequeña diferencia de ángulo inicial fijada por <strong>Diferencia de ángulo inicial</strong> más abajo. Durante un rato oscilan juntos casi a la perfección. Luego, aparentemente de la nada, sus bolas exteriores (los puntos con estela) empiezan a trazar caminos completamente distintos.',
                 howToInterpretHtml2: 'Este es el sello distintivo de un <strong>sistema caótico</strong>: no que sea aleatorio, sino que diferencias arbitrariamente pequeñas en las condiciones iniciales crecen exponencialmente con el tiempo, haciendo que la predicción a largo plazo sea prácticamente imposible aunque cada paso del movimiento esté completamente determinado. Prueba el preajuste <strong>Suave</strong> como contraste &mdash; con ángulos pequeños, un péndulo doble apenas diverge.',
                 seeMoreTools: 'Ver más herramientas',
+                viewSource: 'Ver código fuente',
             },
             ja: {
                 browserTabTitle: '二重振り子',
@@ -883,6 +895,7 @@
                 howToInterpretHtml1: '2つの振り子はどちらも、まったく同じ決定論的な方程式に従い、質量・長さ・重力もすべて同じです &mdash; 唯一の違いは、下にある<strong>初期角度の差</strong>で設定するごくわずかな初期角度のずれだけです。しばらくの間、2つはほぼ完全に一緒に揺れます。しかしやがて、まるで何もないところから突然、外側のおもり(軌跡を残す点)がまったく異なる経路を描き始めます。',
                 howToInterpretHtml2: 'これこそが<strong>カオス的なシステム</strong>の特徴です &mdash; ランダムだという意味ではなく、初期条件のごくわずかな違いが時間とともに指数関数的に拡大し、動きの各ステップは完全に決定されているにもかかわらず、長期的な予測が実質的に不可能になるということです。対比として<strong>穏やか</strong>のプリセットを試してみてください &mdash; 角度が小さいと、二重振り子はほとんど発散しません。',
                 seeMoreTools: '他のツールを見る',
+                viewSource: 'ソースを見る',
             },
         };
 
