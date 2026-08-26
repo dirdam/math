@@ -1,0 +1,678 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --accent: #b8492f;
+    --accent-2: #2f7a4d;
+    --panel-bg: rgba(255, 255, 255, 0.66);
+    --panel-border: rgba(0, 0, 0, 0.12);
+    --text-main: #262626;
+    --text-dim: #5a5a5a;
+    /* Same identity colors as the charts' --series-prey/--series-predator
+       (kept as separate vars since the controls panel isn't inside the
+       charts' .viz-root scope) — used to color-code each field's icon
+       and slider to the population it affects. */
+    --prey-color: #008300;
+    --predator-color: #e34948;
+    /* The exact midpoint between --prey-color and --predator-color
+       (an even blend, belonging to neither population) — used for
+       anything that represents "a parameter", not one specific
+       population: the number fields' text and every slider thumb. */
+    --accent-mid: #726624;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    color: var(--text-main);
+    padding: 40px 20px;
+    overflow-x: hidden;
+    /* A richer, warmer grassland wash, plus soft rolling wave
+       bands built from a real simulated run of the Classic preset
+       (the same RK4 stepper used live, not an approximation) —
+       one green band for prey, one red for predator, naturally
+       offset the way the real dynamics offset them (predator
+       peaks always lag prey peaks). Each band fades to
+       transparent toward its own crest, so it reads as flowing
+       up out of the page rather than a hard-edged shape, and uses
+       the app's actual identity colors (the same hexes as the
+       chart lines/ratio bar/sliders), not the muted brand accent
+       used for chrome elsewhere. */
+    background-image:
+        url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221400%22%20height%3D%22400%22%20viewBox%3D%220%200%201400%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22pf%22%20x1%3D%220%22%20y1%3D%2281%22%20x2%3D%220%22%20y2%3D%22396%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23008300%22%20stop-opacity%3D%220%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23008300%22%20stop-opacity%3D%220.42%22/%3E%3C/linearGradient%3E%3ClinearGradient%20id%3D%22df%22%20x1%3D%220%22%20y1%3D%2281%22%20x2%3D%220%22%20y2%3D%22396%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23e34948%22%20stop-opacity%3D%220%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23e34948%22%20stop-opacity%3D%220.38%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath%20d%3D%22M%200.0%20396%20L%200.0%20283.2%20L%206.2%20269.4%20L%2012.8%20254.4%20L%2019.1%20240.3%20L%2025.7%20225.5%20L%2031.9%20212.0%20L%2038.5%20198.4%20L%2044.8%20186.6%20L%2051.0%20175.9%20L%2057.6%20166.1%20L%2063.8%20158.5%20L%2070.5%20152.3%20L%2076.7%20148.4%20L%2082.9%20146.3%20L%2089.5%20146.2%20L%2095.8%20147.9%20L%20102.4%20151.7%20L%20108.6%20156.9%20L%20115.2%20164.1%20L%20121.5%20172.1%20L%20127.7%20181.3%20L%20134.3%20192.1%20L%20140.5%20203.0%20L%20147.2%20215.1%20L%20153.4%20227.0%20L%20160.0%20239.9%20L%20166.2%20252.0%20L%20172.5%20264.2%20L%20179.1%20276.9%20L%20185.3%20288.5%20L%20191.9%20300.5%20L%20198.2%20311.4%20L%20204.4%20321.8%20L%20211.0%20332.2%20L%20217.2%20341.4%20L%20223.9%20350.4%20L%20230.1%20358.3%20L%20236.7%20365.8%20L%20242.9%20372.2%20L%20249.2%20377.9%20L%20255.8%20383.1%20L%20262.0%20387.3%20L%20268.6%20390.8%20L%20274.9%20393.3%20L%20281.1%20395.0%20L%20287.7%20395.9%20L%20293.9%20395.9%20L%20300.6%20395.0%20L%20306.8%20393.1%20L%20313.4%20390.2%20L%20319.6%20386.6%20L%20325.9%20382.0%20L%20332.5%20376.0%20L%20338.7%20369.4%20L%20345.3%20361.4%20L%20351.6%20352.8%20L%20358.2%20342.7%20L%20364.4%20332.2%20L%20370.6%20320.9%20L%20377.3%20308.0%20L%20383.5%20295.1%20L%20390.1%20280.8%20L%20396.3%20267.0%20L%20402.6%20252.9%20L%20409.2%20237.9%20L%20415.4%20224.0%20L%20422.0%20209.7%20L%20428.3%20197.1%20L%20434.9%20184.6%20L%20441.1%20174.2%20L%20447.3%20165.2%20L%20453.9%20157.4%20L%20460.2%20151.8%20L%20466.8%20147.9%20L%20473.0%20146.2%20L%20479.6%20146.3%20L%20485.9%20148.4%20L%20492.1%20152.2%20L%20498.7%20158.0%20L%20504.9%20164.9%20L%20511.6%20173.6%20L%20517.8%20183.0%20L%20524.0%20193.2%20L%20530.6%20204.9%20L%20536.9%20216.4%20L%20543.5%20229.1%20L%20549.7%20241.2%20L%20556.3%20254.1%20L%20562.6%20266.2%20L%20568.8%20278.2%20L%20575.4%20290.5%20L%20581.6%20301.8%20L%20588.3%20313.2%20L%20594.5%20323.5%20L%20600.7%20333.2%20L%20607.3%20342.9%20L%20613.6%20351.3%20L%20620.2%20359.5%20L%20626.4%20366.6%20L%20633.0%20373.3%20L%20639.3%20378.8%20L%20645.5%20383.6%20L%20652.1%20387.9%20L%20658.3%20391.1%20L%20665.0%20393.7%20L%20671.2%20395.2%20L%20677.8%20396.0%20L%20684.0%20395.8%20L%20690.3%20394.8%20L%20696.9%20392.7%20L%20703.1%20389.9%20L%20709.7%20385.8%20L%20716.0%20381.1%20L%20722.2%20375.4%20L%20728.8%20368.2%20L%20735.0%20360.5%20L%20741.7%20351.3%20L%20747.9%20341.6%20L%20754.5%20330.3%20L%20760.7%20318.8%20L%20767.0%20306.6%20L%20773.6%20292.8%20L%20779.8%20279.3%20L%20786.4%20264.6%20L%20792.7%20250.4%20L%20799.3%20235.5%20L%20805.5%20221.6%20L%20811.7%20208.3%20L%20818.4%20195.0%20L%20824.6%20183.4%20L%20831.2%20172.6%20L%20837.4%20163.8%20L%20843.7%20156.7%20L%20850.3%20151.0%20L%20856.5%20147.6%20L%20863.1%20146.0%20L%20869.4%20146.5%20L%20876.0%20148.9%20L%20882.2%20153.0%20L%20888.4%20158.7%20L%20895.1%20166.2%20L%20901.3%20174.6%20L%20907.9%20184.7%20L%20914.1%20195.1%20L%20920.4%20206.1%20L%20927.0%20218.5%20L%20933.2%20230.4%20L%20939.8%20243.3%20L%20946.1%20255.5%20L%20952.7%20268.3%20L%20958.9%20280.2%20L%20965.1%20291.8%20L%20971.7%20303.6%20L%20978.0%20314.4%20L%20984.6%20325.2%20L%20990.8%20334.8%20L%20997.4%20344.4%20L%201003.7%20352.7%20L%201009.9%20360.3%20L%201016.5%20367.7%20L%201022.7%20373.9%20L%201029.4%20379.7%20L%201035.6%20384.4%20L%201041.8%20388.3%20L%201048.4%20391.6%20L%201054.7%20393.9%20L%201061.3%20395.4%20L%201067.5%20396.0%20L%201074.1%20395.7%20L%201080.4%20394.5%20L%201086.6%20392.5%20L%201093.2%20389.3%20L%201099.4%20385.4%20L%201106.1%20380.2%20L%201112.3%20374.3%20L%201118.9%20367.0%20L%201125.1%20359.1%20L%201131.4%20350.2%20L%201138.0%20339.8%20L%201144.2%20329.1%20L%201150.8%20316.8%20L%201157.1%20304.4%20L%201163.3%20291.4%20L%201169.9%20277.0%20L%201176.1%20263.0%20L%201182.8%20248.0%20L%201189.0%20233.9%20L%201195.6%20219.3%20L%201201.8%20206.1%20L%201208.1%20193.7%20L%201214.7%20181.6%20L%201220.9%20171.5%20L%201227.5%20162.5%20L%201233.8%20155.6%20L%201240.0%20150.6%20L%201246.6%20147.2%20L%201252.8%20146.0%20L%201259.5%20146.7%20L%201265.7%20149.3%20L%201272.3%20153.9%20L%201278.5%20159.8%20L%201284.8%20167.1%20L%201291.4%20176.2%20L%201297.6%20185.8%20L%201304.2%20196.9%20L%201310.5%20208.1%20L%201317.1%20220.5%20L%201323.3%20232.5%20L%201329.5%20244.6%20L%201336.2%20257.6%20L%201342.4%20269.6%20L%201349.0%20282.2%20L%201355.2%20293.7%20L%201361.5%20304.8%20L%201368.1%20316.2%20L%201374.3%20326.3%20L%201380.9%20336.4%20L%201387.2%20345.3%20L%201393.8%20354.1%20L%201400.0%20361.6%20L%201400.0%20396%20Z%22%20fill%3D%22url%28%23df%29%22/%3E%3Cpath%20d%3D%22M%200.0%20396%20L%200.0%20146.0%20L%206.2%20146.9%20L%2012.8%20149.7%20L%2019.1%20154.2%20L%2025.7%20160.9%20L%2031.9%20168.8%20L%2038.5%20178.9%20L%2044.8%20189.7%20L%2051.0%20201.7%20L%2057.6%20215.4%20L%2063.8%20228.9%20L%2070.5%20243.8%20L%2076.7%20258.0%20L%2082.9%20272.2%20L%2089.5%20287.0%20L%2095.8%20300.5%20L%20102.4%20314.1%20L%20108.6%20326.2%20L%20115.2%20338.2%20L%20121.5%20348.5%20L%20127.7%20357.8%20L%20134.3%20366.6%20L%20140.5%20373.9%20L%20147.2%20380.4%20L%20153.4%20385.5%20L%20160.0%20389.8%20L%20166.2%20392.8%20L%20172.5%20394.8%20L%20179.1%20395.9%20L%20185.3%20395.9%20L%20191.9%20394.9%20L%20198.2%20393.1%20L%20204.4%20390.4%20L%20211.0%20386.7%20L%20217.2%20382.3%20L%20223.9%20376.8%20L%20230.1%20370.8%20L%20236.7%20363.7%20L%20242.9%20356.2%20L%20249.2%20348.2%20L%20255.8%20338.9%20L%20262.0%20329.6%20L%20268.6%20319.1%20L%20274.9%20308.8%20L%20281.1%20298.0%20L%20287.7%20286.2%20L%20293.9%20274.7%20L%20300.6%20262.4%20L%20306.8%20250.6%20L%20313.4%20238.2%20L%20319.6%20226.6%20L%20325.9%20215.2%20L%20332.5%20203.5%20L%20338.7%20193.0%20L%20345.3%20182.6%20L%20351.6%20173.7%20L%20358.2%20165.3%20L%20364.4%20158.6%20L%20370.6%20153.2%20L%20377.3%20149.0%20L%20383.5%20146.7%20L%20390.1%20146.0%20L%20396.3%20147.2%20L%20402.6%20150.1%20L%20409.2%20155.2%20L%20415.4%20161.7%20L%20422.0%20170.3%20L%20428.3%20180.0%20L%20434.9%20191.7%20L%20441.1%20203.8%20L%20447.3%20216.8%20L%20453.9%20231.3%20L%20460.2%20245.4%20L%20466.8%20260.5%20L%20473.0%20274.6%20L%20479.6%20289.3%20L%20485.9%20302.7%20L%20492.1%20315.5%20L%20498.7%20328.2%20L%20504.9%20339.3%20L%20511.6%20350.1%20L%20517.8%20359.3%20L%20524.0%20367.5%20L%20530.6%20375.0%20L%20536.9%20381.0%20L%20543.5%20386.3%20L%20549.7%20390.2%20L%20556.3%20393.2%20L%20562.6%20395.0%20L%20568.8%20395.9%20L%20575.4%20395.8%20L%20581.6%20394.8%20L%20588.3%20392.7%20L%20594.5%20389.9%20L%20600.7%20386.2%20L%20607.3%20381.4%20L%20613.6%20376.1%20L%20620.2%20369.7%20L%20626.4%20362.9%20L%20633.0%20354.9%20L%20639.3%20346.7%20L%20645.5%20337.9%20L%20652.1%20327.9%20L%20658.3%20318.0%20L%20665.0%20306.9%20L%20671.2%20296.1%20L%20677.8%20284.2%20L%20684.0%20272.8%20L%20690.3%20261.1%20L%20696.9%20248.6%20L%20703.1%20236.9%20L%20709.7%20224.6%20L%20716.0%20213.2%20L%20722.2%20202.3%20L%20728.8%20191.3%20L%20735.0%20181.6%20L%20741.7%20172.3%20L%20747.9%20164.5%20L%20754.5%20157.6%20L%20760.7%20152.4%20L%20767.0%20148.7%20L%20773.6%20146.4%20L%20779.8%20146.1%20L%20786.4%20147.6%20L%20792.7%20150.8%20L%20799.3%20156.2%20L%20805.5%20162.9%20L%20811.7%20171.3%20L%20818.4%20181.8%20L%20824.6%20193.0%20L%20831.2%20206.0%20L%20837.4%20219.1%20L%20843.7%20232.9%20L%20850.3%20247.8%20L%20856.5%20262.0%20L%20863.1%20277.0%20L%20869.4%20290.8%20L%20876.0%20305.0%20L%20882.2%20317.6%20L%20888.4%20329.5%20L%20895.1%20341.2%20L%20901.3%20351.2%20L%20907.9%20360.8%20L%20914.1%20368.8%20L%20920.4%20375.7%20L%20927.0%20382.0%20L%20933.2%20386.8%20L%20939.8%20390.7%20L%20946.1%20393.5%20L%20952.7%20395.3%20L%20958.9%20396.0%20L%20965.1%20395.7%20L%20971.7%20394.5%20L%20978.0%20392.4%20L%20984.6%20389.3%20L%20990.8%20385.5%20L%20997.4%20380.6%20L%201003.7%20375.1%20L%201009.9%20369.0%20L%201016.5%20361.6%20L%201022.7%20354.0%20L%201029.4%20345.2%20L%201035.6%20336.3%20L%201041.8%20326.9%20L%201048.4%20316.3%20L%201054.7%20305.8%20L%201061.3%20294.2%20L%201067.5%20283.0%20L%201074.1%20270.8%20L%201080.4%20259.1%20L%201086.6%20247.3%20L%201093.2%20234.9%20L%201099.4%20223.3%20L%201106.1%20211.3%20L%201112.3%20200.5%20L%201118.9%20189.6%20L%201125.1%20180.0%20L%201131.4%20171.4%20L%201138.0%20163.3%20L%201144.2%20156.9%20L%201150.8%20151.6%20L%201157.1%20148.2%20L%201163.3%20146.3%20L%201169.9%20146.2%20L%201176.1%20147.8%20L%201182.8%20151.5%20L%201189.0%20156.8%20L%201195.6%20164.3%20L%201201.8%20172.9%20L%201208.1%20182.9%20L%201214.7%20195.0%20L%201220.9%20207.4%20L%201227.5%20221.5%20L%201233.8%20235.3%20L%201240.0%20249.4%20L%201246.6%20264.5%20L%201252.8%20278.6%20L%201259.5%20293.2%20L%201265.7%20306.4%20L%201272.3%20319.7%20L%201278.5%20331.4%20L%201284.8%20342.3%20L%201291.4%20352.8%20L%201297.6%20361.7%20L%201304.2%20370.0%20L%201310.5%20376.8%20L%201317.1%20382.9%20L%201323.3%20387.5%20L%201329.5%20391.1%20L%201336.2%20393.8%20L%201342.4%20395.4%20L%201349.0%20396.0%20L%201355.2%20395.6%20L%201361.5%20394.3%20L%201368.1%20392.0%20L%201374.3%20388.9%20L%201380.9%20384.8%20L%201387.2%20380.0%20L%201393.8%20374.1%20L%201400.0%20367.8%20L%201400.0%20396%20Z%22%20fill%3D%22url%28%23pf%29%22/%3E%3C/svg%3E"),
+        linear-gradient(180deg, #fdf3e0 0%, #f5ecd0 30%, #dce8c8 65%, #c8ddc0 100%);
+    background-repeat: no-repeat, no-repeat;
+    background-position: bottom center, center;
+    background-size: 100% auto, cover;
+    background-attachment: fixed, fixed;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.panel {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    backdrop-filter: blur(14px);
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Static explanatory panel (always expanded, no disclosure toggle)
+   — matches the timezones app's own "How to interpret" convention:
+   an uppercase label + prose paragraph(s) with inline <strong>
+   emphasis on key terms, no bullets. */
+.how-to-interpret {
+    padding: 22px 24px;
+    margin-bottom: 24px;
+}
+
+.how-to-interpret h2 {
+    font-size: 1em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent);
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.how-to-interpret p {
+    color: var(--text-dim);
+    line-height: 1.6;
+    font-size: 0.95em;
+}
+
+.how-to-interpret p + p {
+    margin-top: 10px;
+}
+
+.how-to-interpret p strong {
+    color: var(--text-main);
+}
+
+/* No LaTeX renderer is loaded — every app in this family is a
+   single self-contained file with zero external dependencies, and
+   pulling in a full math-typesetting engine just for two lines of
+   math isn't worth breaking that. A serif italic font plus a
+   hand-built fraction (a bar rule between two stacked spans)
+   reproduces the LaTeX look closely enough without one. */
+.equations {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 10px 0 4px;
+}
+
+.equation {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'STIX Two Math', 'Cambria Math', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+    font-size: 1.55em;
+    color: var(--text-main);
+}
+
+/* Variables and Greek quantities are italic (math-italic, per
+   convention); "=" and "−" stay upright — real math typesetting
+   never slants its operators, only its symbols. The letter-spacing
+   here is what actually needed the room: compound terms like "βxy"
+   read as a jumble of touching italic letters at this size without
+   it, not the spacing between the terms themselves. */
+.equation .var {
+    font-style: italic;
+    letter-spacing: 0.06em;
+}
+
+.equation .op {
+    font-style: normal;
+    color: var(--text-dim);
+}
+
+.equation .frac {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    font-style: italic;
+    font-size: 0.72em;
+    line-height: 1.3;
+}
+
+.equation .frac .num,
+.equation .frac .den {
+    padding: 0 5px;
+    letter-spacing: 0.06em;
+}
+
+.equation .frac .num {
+    border-bottom: 1.75px solid currentColor;
+    padding-bottom: 2px;
+}
+
+.equation .frac .den {
+    padding-top: 1px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 36px;
+    position: relative;
+}
+
+header h1 {
+    font-size: 2.4em;
+    font-weight: 800;
+    background: linear-gradient(120deg, var(--accent) 0%, var(--accent-2) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: 0.5px;
+}
+
+header p {
+    color: var(--text-dim);
+    margin-top: 8px;
+    font-size: 1.05em;
+}
+
+.intro-wrap {
+    position: relative;
+    max-width: 760px;
+    margin: 28px auto 0;
+    padding-top: 22px;
+}
+
+.intro-wrap::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 52px;
+    height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(120deg, var(--accent) 0%, var(--accent-2) 100%);
+}
+
+header p.intro {
+    font-size: 1.08em;
+    line-height: 1.7;
+    color: var(--text-dim);
+    margin: 0;
+}
+
+header p.intro strong {
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+.main-grid {
+    display: grid;
+    grid-template-columns: 1.8fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+    align-items: start;
+}
+
+.canvas-panel {
+    padding: 22px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* Chart-specific colors, scoped to just this subtree (matching
+   surnames-evolution's own dark-mode chart scoping convention) —
+   the rest of this app's chrome stays light-only like phyllotaxis,
+   this app's charts alone adapt to OS dark mode. */
+.viz-root {
+    color-scheme: light;
+    --surface-1: #fffdf9;
+    --ink-primary: #1a1a1a;
+    --ink-secondary: #52514e;
+    --ink-muted: #8c8a84;
+    --gridline: #e3e1d8;
+    --series-prey: #008300;
+    --series-predator: #e34948;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+        color-scheme: dark;
+        --surface-1: #1c1c1a;
+        --ink-primary: #ffffff;
+        --ink-secondary: #c3c2b7;
+        --ink-muted: #8c8a84;
+        --gridline: #302f2c;
+        --series-prey: #008300;
+        --series-predator: #e66767;
+    }
+}
+
+:root[data-theme="dark"] .viz-root {
+    color-scheme: dark;
+    --surface-1: #1c1c1a;
+    --ink-primary: #ffffff;
+    --ink-secondary: #c3c2b7;
+    --ink-muted: #8c8a84;
+    --gridline: #302f2c;
+    --series-prey: #008300;
+    --series-predator: #e66767;
+}
+
+.chart-legend {
+    padding: 0 4px;
+}
+
+/* A 100%-stacked ratio bar — prey's and predator's share of the
+   combined population, always summing to 100%, rather than the raw
+   counts (which don't share a meaningful common scale and don't
+   sum to anything) — reads at a glance as "who's winning right now". */
+.ratio-bar {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 30px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--gridline);
+}
+
+.ratio-seg {
+    height: 100%;
+    transition: width 0.15s linear;
+}
+
+.ratio-seg.prey { background: var(--series-prey); }
+.ratio-seg.predator { background: var(--series-predator); }
+
+.ratio-label {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.78em;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.ratio-label strong {
+    font-variant-numeric: tabular-nums;
+}
+
+.ratio-icon {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
+}
+
+.ratio-label-prey { left: 10px; }
+.ratio-label-predator { right: 10px; }
+
+.chart-caption {
+    font-size: 0.8em;
+    font-weight: 700;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: -4px;
+}
+
+.chart-stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 2.4 / 1;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--surface-1);
+    box-shadow: inset 0 0 0 1px var(--panel-border);
+}
+
+.chart-stage canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.chart-tooltip {
+    position: absolute;
+    display: none;
+    transform: translateX(-50%);
+    background: var(--surface-1);
+    color: var(--ink-primary);
+    border: 1px solid var(--gridline);
+    border-radius: 8px;
+    padding: 6px 9px;
+    font-size: 0.76em;
+    line-height: 1.5;
+    pointer-events: none;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    white-space: nowrap;
+}
+
+.chart-tooltip .row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.chart-tooltip .swatch {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.controls-panel {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.field-group label {
+    display: block;
+    font-size: 0.85em;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 8px;
+}
+
+.field-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.field-label-row label {
+    margin-bottom: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.field-icon {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+}
+
+.field-icon.prey { color: var(--prey-color); }
+.field-icon.predator { color: var(--predator-color); }
+
+.field-number {
+    width: 84px;
+    padding: 6px 8px;
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    background: white;
+    color: var(--accent);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    font-size: 0.95em;
+}
+
+.field-number:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+}
+
+.field-hint {
+    font-size: 0.75em;
+    color: var(--text-dim);
+    margin-top: 6px;
+}
+
+/* The two initial-population sliders sit side by side under one
+   shared "Initial populations" header instead of each getting its
+   own full-width row — the icon alone identifies which is which,
+   since the header already says what the pair represents. */
+.initial-pop-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.initial-pop-field .field-number {
+    width: 62px;
+    padding: 6px 6px;
+    font-size: 0.88em;
+}
+
+/* Every slider shares one custom-built look (native accent-color
+   can't do what this needs — see below — so all of them, not just
+   the predation-rate one, are built the same way for a consistent
+   result): a plain gray track, with a colored "fill" from the left
+   edge up to the thumb. The thumb itself is always the same brand
+   accent color as the number field next to it and the active-preset
+   buttons — the fill color is what changes per field (prey green,
+   predator red, or a fixed predator→prey gradient for the rate that
+   affects both), so color-coding lives in the fill, not the handle.
+   That fill is computed and set as an inline background by
+   updateSliderTrack() in the script below; this is just the
+   plain-gray look before that first runs. */
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 999px;
+    background: #d9d9d9;
+    outline: none;
+    cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent-mid);
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent-mid);
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+input[type="range"]::-moz-range-track {
+    height: 6px;
+    border-radius: 999px;
+    background: transparent;
+}
+
+input[type="range"]:focus {
+    outline: 2px solid var(--text-dim);
+    outline-offset: 2px;
+}
+
+.preset-buttons {
+    display: flex;
+    gap: 6px;
+}
+
+.preset-buttons button {
+    flex: 1;
+    min-width: 0;
+    background: rgba(0, 0, 0, 0.06);
+    border: none;
+    color: var(--text-dim);
+    font-size: 0.78em;
+    font-weight: 700;
+    padding: 6px 8px;
+    border-radius: 999px;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.preset-buttons button:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: var(--text-main);
+}
+
+.preset-buttons button.active {
+    background: var(--accent);
+    color: white;
+}
+
+.pill-toggle {
+    display: inline-flex;
+    background: rgba(0, 0, 0, 0.06);
+    border-radius: 999px;
+    padding: 3px;
+    gap: 2px;
+}
+
+.field-group .pill-toggle {
+    display: flex;
+    width: 100%;
+}
+
+.field-group .pill-toggle button {
+    flex: 1;
+}
+
+.pill-toggle button {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    font-size: 0.8em;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.pill-toggle button:hover {
+    color: var(--text-main);
+}
+
+.pill-toggle button[aria-pressed="true"] {
+    background: white;
+    color: var(--accent);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.transport-row {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 44px;
+    flex: 1;
+    /* The play/pause button drives BOTH populations at once, so it
+       gets the same prey/predator gradient as the predation-rate
+       slider, rather than the page's rust/forest-green brand
+       gradient used for the header title. */
+    background: linear-gradient(120deg, var(--predator-color) 0%, var(--prey-color) 100%);
+    color: white;
+    border: none;
+    padding: 0 16px;
+    border-radius: 10px;
+    font-size: 0.9em;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn.secondary {
+    background: rgba(0, 0, 0, 0.07);
+    color: var(--text-main);
+    box-shadow: none;
+    flex: none;
+    width: 44px;
+}
+
+.btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+footer {
+    text-align: center;
+    margin-top: 36px;
+    padding-top: 22px;
+    border-top: 1px solid var(--panel-border);
+    color: var(--text-dim);
+    font-size: 0.85em;
+}
+
+footer .pill-toggle {
+    margin-bottom: 12px;
+}
+
+footer a {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+footer a.source-link svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+    vertical-align: -2px;
+    margin-right: 3px;
+}
+
+@media screen and (max-width: 860px) {
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .chart-stage {
+        aspect-ratio: 2 / 1;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    header h1 {
+        font-size: 1.8em;
+    }
+}

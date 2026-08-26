@@ -1,0 +1,394 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --accent: #c9820a;
+    --accent-2: #4a7c3a;
+    --panel-bg: rgba(255, 255, 255, 0.66);
+    --panel-border: rgba(0, 0, 0, 0.12);
+    --text-main: #262626;
+    --text-dim: #5a5a5a;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    color: var(--text-main);
+    padding: 40px 20px;
+    overflow-x: hidden;
+    /* A warm field-of-sunflowers wash, plus an actual sunflower seed
+       head peeking from the corner: an SVG of ~230 circles placed by
+       running this app's own golden-angle packing algorithm (not a
+       approximation) at a larger field size, in the same floret
+       palette as the canvas, so the page background echoes the
+       app's own subject rather than being generic decoration. */
+    background-image:
+        url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22700%22%20height%3D%22700%22%20viewBox%3D%220%200%20700%20700%22%3E%3Ccircle%20cx%3D%22667.4%22%20cy%3D%22350.0%22%20r%3D%2216.82%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.144%22/%3E%3Ccircle%20cx%3D%22117.2%22%20cy%3D%22136.8%22%20r%3D%2217.23%22%20fill%3D%22%234a7c3a%22%20fill-opacity%3D%220.106%22/%3E%3Ccircle%20cx%3D%22377.6%22%20cy%3D%22664.5%22%20r%3D%2217.46%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.122%22/%3E%3Ccircle%20cx%3D%22541.7%22%20cy%3D%2299.9%22%20r%3D%2217.14%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.145%22/%3E%3Ccircle%20cx%3D%2240.2%22%20cy%3D%22404.8%22%20r%3D%2216.82%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.114%22/%3E%3Ccircle%20cx%3D%22615.5%22%20cy%3D%22518.9%22%20r%3D%2217.36%22%20fill%3D%22%234a7c3a%22%20fill-opacity%3D%220.155%22/%3E%3Ccircle%20cx%3D%22268.7%22%20cy%3D%2247.4%22%20r%3D%2217.37%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.150%22/%3E%3Ccircle%20cx%3D%22205.6%22%20cy%3D%22628.1%22%20r%3D%2217.44%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.124%22/%3E%3Ccircle%20cx%3D%22644.3%22%20cy%3D%22242.5%22%20r%3D%2217.33%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.176%22/%3E%3Ccircle%20cx%3D%2263.9%22%20cy%3D%22231.9%22%20r%3D%2217.59%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.116%22/%3E%3Ccircle%20cx%3D%22481.2%22%20cy%3D%22630.3%22%20r%3D%2216.72%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.122%22/%3E%3Ccircle%20cx%3D%22442.3%22%20cy%3D%2255.7%22%20r%3D%2217.40%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.174%22/%3E%3Ccircle%20cx%3D%2283.2%22%20cy%3D%22504.6%22%20r%3D%2217.18%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.148%22/%3E%3Ccircle%20cx%3D%22651.2%22%20cy%3D%22416.2%22%20r%3D%2217.53%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.160%22/%3E%3Ccircle%20cx%3D%22173.4%22%20cy%3D%2298.9%22%20r%3D%2217.62%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.160%22/%3E%3Ccircle%20cx%3D%22310.5%22%20cy%3D%22654.5%22%20r%3D%2217.59%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.179%22/%3E%3Ccircle%20cx%3D%22584.7%22%20cy%3D%22152.2%22%20r%3D%2217.24%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.186%22/%3E%3Ccircle%20cx%3D%2246.0%22%20cy%3D%22337.4%22%20r%3D%2216.64%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.177%22/%3E%3Ccircle%20cx%3D%22565.6%22%20cy%3D%22564.6%22%20r%3D%2216.94%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.114%22/%3E%3Ccircle%20cx%3D%22336.0%22%20cy%3D%2247.3%22%20r%3D%2216.88%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.171%22/%3E%3Ccircle%20cx%3D%22155.8%22%20cy%3D%22582.7%22%20r%3D%2217.21%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.170%22/%3E%3Ccircle%20cx%3D%22650.3%22%20cy%3D%22309.6%22%20r%3D%2217.15%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.183%22/%3E%3Ccircle%20cx%3D%22103.0%22%20cy%3D%22178.2%22%20r%3D%2217.63%22%20fill%3D%22%234a7c3a%22%20fill-opacity%3D%220.135%22/%3E%3Ccircle%20cx%3D%22416.0%22%20cy%3D%22643.5%22%20r%3D%2217.21%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.113%22/%3E%3Ccircle%20cx%3D%22499.2%22%20cy%3D%2289.6%22%20r%3D%2216.88%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.132%22/%3E%3Ccircle%20cx%3D%2264.6%22%20cy%3D%22441.0%22%20r%3D%2216.90%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.188%22/%3E%3Ccircle%20cx%3D%22621.9%22%20cy%3D%22475.6%22%20r%3D%2216.97%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.181%22/%3E%3Ccircle%20cx%3D%22235.0%22%20cy%3D%2275.2%22%20r%3D%2217.23%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.188%22/%3E%3Ccircle%20cx%3D%22249.2%22%20cy%3D%22630.3%22%20r%3D%2217.24%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.170%22/%3E%3Ccircle%20cx%3D%22613.7%22%20cy%3D%22211.4%22%20r%3D%2217.61%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.154%22/%3E%3Ccircle%20cx%3D%2266.0%22%20cy%3D%22275.1%22%20r%3D%2217.41%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.194%22/%3E%3Ccircle%20cx%3D%22508.8%22%20cy%3D%22597.0%22%20r%3D%2217.22%22%20fill%3D%22%234a7c3a%22%20fill-opacity%3D%220.165%22/%3E%3Ccircle%20cx%3D%22399.6%22%20cy%3D%2261.5%22%20r%3D%2217.24%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.153%22/%3E%3Ccircle%20cx%3D%22118.6%22%20cy%3D%22529.2%22%20r%3D%2217.22%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.138%22/%3E%3Ccircle%20cx%3D%22641.7%22%20cy%3D%22374.2%22%20r%3D%2217.58%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.117%22/%3E%3Ccircle%20cx%3D%22152.5%22%20cy%3D%22136.5%22%20r%3D%2216.89%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.165%22/%3E%3Ccircle%20cx%3D%22351.4%22%20cy%3D%22640.9%22%20r%3D%2216.90%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.146%22/%3E%3Ccircle%20cx%3D%22545.0%22%20cy%3D%22135.0%22%20r%3D%2217.40%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.125%22/%3E%3Ccircle%20cx%3D%2261.5%22%20cy%3D%22376.7%22%20r%3D%2216.90%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.135%22/%3E%3Ccircle%20cx%3D%22580.8%22%20cy%3D%22525.2%22%20r%3D%2216.92%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.172%22/%3E%3Ccircle%20cx%3D%22298.4%22%20cy%3D%2266.4%22%20r%3D%2216.68%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.144%22/%3E%3Ccircle%20cx%3D%22196.4%22%20cy%3D%22594.0%22%20r%3D%2217.04%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.187%22/%3E%3Ccircle%20cx%3D%22628.0%22%20cy%3D%22273.8%22%20r%3D%2217.36%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.136%22/%3E%3Ccircle%20cx%3D%2297.2%22%20cy%3D%22220.3%22%20r%3D%2216.81%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.131%22/%3E%3Ccircle%20cx%3D%22448.8%22%20cy%3D%22616.4%22%20r%3D%2216.91%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.188%22/%3E%3Ccircle%20cx%3D%22456.7%22%20cy%3D%2287.9%22%20r%3D%2216.93%22%20fill%3D%22%234a7c3a%22%20fill-opacity%3D%220.188%22/%3E%3Ccircle%20cx%3D%2294.3%22%20cy%3D%22471.2%22%20r%3D%2217.23%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.169%22/%3E%3Ccircle%20cx%3D%22620.4%22%20cy%3D%22433.4%22%20r%3D%2217.06%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.172%22/%3E%3Ccircle%20cx%3D%22207.7%22%20cy%3D%22107.2%22%20r%3D%2216.61%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.156%22/%3E%3Ccircle%20cx%3D%22290.9%22%20cy%3D%22625.2%22%20r%3D%2217.57%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.193%22/%3E%3Ccircle%20cx%3D%22579.4%22%20cy%3D%22187.0%22%20r%3D%2217.16%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.202%22/%3E%3Ccircle%20cx%3D%2273.7%22%20cy%3D%22315.6%22%20r%3D%2217.36%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.191%22/%3E%3Ccircle%20cx%3D%22530.5%22%20cy%3D%22562.0%22%20r%3D%2217.15%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.196%22/%3E%3Ccircle%20cx%3D%22360.1%22%20cy%3D%2273.0%22%20r%3D%2216.70%22%20fill%3D%22%234a7c3a%22%20fill-opacity%3D%220.145%22/%3E%3Ccircle%20cx%3D%22155.5%22%20cy%3D%22547.4%22%20r%3D%2217.42%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.166%22/%3E%3Ccircle%20cx%3D%22626.8%22%20cy%3D%22335.8%22%20r%3D%2217.18%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.126%22/%3E%3Ccircle%20cx%3D%22138.1%22%20cy%3D%22174.9%22%20r%3D%2217.10%22%20fill%3D%22%234a7c3a%22%20fill-opacity%3D%220.146%22/%3E%3Ccircle%20cx%3D%22388.0%22%20cy%3D%22622.2%22%20r%3D%2217.14%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.131%22/%3E%3Ccircle%20cx%3D%22505.4%22%20cy%3D%22124.3%22%20r%3D%2216.93%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.147%22/%3E%3Ccircle%20cx%3D%2283.6%22%20cy%3D%22411.3%22%20r%3D%2217.43%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.133%22/%3E%3Ccircle%20cx%3D%22587.9%22%20cy%3D%22484.8%22%20r%3D%2217.14%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.193%22/%3E%3Ccircle%20cx%3D%22266.2%22%20cy%3D%2291.7%22%20r%3D%2217.55%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.193%22/%3E%3Ccircle%20cx%3D%22237.3%22%20cy%3D%22597.1%22%20r%3D%2217.09%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.175%22/%3E%3Ccircle%20cx%3D%22600.0%22%20cy%3D%22243.9%22%20r%3D%2216.83%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.178%22/%3E%3Ccircle%20cx%3D%2298.2%22%20cy%3D%22260.8%22%20r%3D%2217.07%22%20fill%3D%22%234a7c3a%22%20fill-opacity%3D%220.194%22/%3E%3Ccircle%20cx%3D%22475.4%22%20cy%3D%22585.8%22%20r%3D%2216.63%22%20fill%3D%22%234a7c3a%22%20fill-opacity%3D%220.142%22/%3E%3Ccircle%20cx%3D%22416.6%22%20cy%3D%2292.4%22%20r%3D%2216.64%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.210%22/%3E%3Ccircle%20cx%3D%22126.9%22%20cy%3D%22495.0%22%20r%3D%2217.12%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.172%22/%3E%3Ccircle%20cx%3D%22612.4%22%20cy%3D%22393.8%22%20r%3D%2216.94%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.184%22/%3E%3Ccircle%20cx%3D%22187.3%22%20cy%3D%22142.0%22%20r%3D%2216.85%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.213%22/%3E%3Ccircle%20cx%3D%22329.5%22%20cy%3D%22613.3%22%20r%3D%2217.16%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.191%22/%3E%3Ccircle%20cx%3D%22542.5%22%20cy%3D%22170.2%22%20r%3D%2217.17%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.137%22/%3E%3Ccircle%20cx%3D%2287.2%22%20cy%3D%22352.6%22%20r%3D%2217.25%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.138%22/%3E%3Ccircle%20cx%3D%22545.5%22%20cy%3D%22525.6%22%20r%3D%2216.97%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.174%22/%3E%3Ccircle%20cx%3D%22324.6%22%20cy%3D%2289.9%22%20r%3D%2217.58%22%20fill%3D%22%234a7c3a%22%20fill-opacity%3D%220.169%22/%3E%3Ccircle%20cx%3D%22193.0%22%20cy%3D%22558.9%22%20r%3D%2216.80%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.157%22/%3E%3Ccircle%20cx%3D%22606.9%22%20cy%3D%22302.0%22%20r%3D%2216.81%22%20fill%3D%22%234a7c3a%22%20fill-opacity%3D%220.146%22/%3E%3Ccircle%20cx%3D%22132.0%22%20cy%3D%22214.3%22%20r%3D%2216.92%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.216%22/%3E%3Ccircle%20cx%3D%22419.1%22%20cy%3D%22597.4%22%20r%3D%2216.70%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.193%22/%3E%3Ccircle%20cx%3D%22465.6%22%20cy%3D%22122.0%22%20r%3D%2217.28%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.198%22/%3E%3Ccircle%20cx%3D%22110.8%22%20cy%3D%22440.0%22%20r%3D%2217.43%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.196%22/%3E%3Ccircle%20cx%3D%22587.2%22%20cy%3D%22445.2%22%20r%3D%2217.39%22%20fill%3D%22%234a7c3a%22%20fill-opacity%3D%220.142%22/%3E%3Ccircle%20cx%3D%22240.1%22%20cy%3D%22121.0%22%20r%3D%2216.68%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.210%22/%3E%3Ccircle%20cx%3D%22276.4%22%20cy%3D%22593.0%22%20r%3D%2216.93%22%20fill%3D%22%234a7c3a%22%20fill-opacity%3D%220.208%22/%3E%3Ccircle%20cx%3D%22568.5%22%20cy%3D%22220.5%22%20r%3D%2216.69%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.179%22/%3E%3Ccircle%20cx%3D%22104.6%22%20cy%3D%22298.5%22%20r%3D%2217.18%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.206%22/%3E%3Ccircle%20cx%3D%22496.2%22%20cy%3D%22553.7%22%20r%3D%2217.63%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.187%22/%3E%3Ccircle%20cx%3D%22379.6%22%20cy%3D%22102.4%22%20r%3D%2216.68%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.203%22/%3E%3Ccircle%20cx%3D%22160.9%22%20cy%3D%22512.6%22%20r%3D%2217.15%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.212%22/%3E%3Ccircle%20cx%3D%22599.3%22%20cy%3D%22357.9%22%20r%3D%2217.45%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.162%22/%3E%3Ccircle%20cx%3D%22173.3%22%20cy%3D%22177.6%22%20r%3D%2217.25%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.181%22/%3E%3Ccircle%20cx%3D%22363.8%22%20cy%3D%22596.5%22%20r%3D%2216.84%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.192%22/%3E%3Ccircle%20cx%3D%22505.8%22%20cy%3D%22159.5%22%20r%3D%2217.16%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.222%22/%3E%3Ccircle%20cx%3D%22107.2%22%20cy%3D%22385.1%22%20r%3D%2217.10%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.223%22/%3E%3Ccircle%20cx%3D%22552.8%22%20cy%3D%22488.2%22%20r%3D%2217.46%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.223%22/%3E%3Ccircle%20cx%3D%22294.3%22%20cy%3D%22113.0%22%20r%3D%2217.30%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.207%22/%3E%3Ccircle%20cx%3D%22231.0%22%20cy%3D%22562.4%22%20r%3D%2216.74%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.179%22/%3E%3Ccircle%20cx%3D%22581.2%22%20cy%3D%22273.7%22%20r%3D%2216.74%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.186%22/%3E%3Ccircle%20cx%3D%22132.4%22%20cy%3D%22252.0%22%20r%3D%2217.54%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.191%22/%3E%3Ccircle%20cx%3D%22444.3%22%20cy%3D%22569.3%22%20r%3D%2217.19%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.218%22/%3E%3Ccircle%20cx%3D%22428.2%22%20cy%3D%22125.7%22%20r%3D%2216.85%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.166%22/%3E%3Ccircle%20cx%3D%22140.8%22%20cy%3D%22462.6%22%20r%3D%2217.56%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.218%22/%3E%3Ccircle%20cx%3D%22580.3%22%20cy%3D%22408.3%22%20r%3D%2217.28%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.219%22/%3E%3Ccircle%20cx%3D%22220.7%22%20cy%3D%22153.2%22%20r%3D%2217.51%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.176%22/%3E%3Ccircle%20cx%3D%22312.4%22%20cy%3D%22582.4%22%20r%3D%2217.08%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.182%22/%3E%3Ccircle%20cx%3D%22534.2%22%20cy%3D%22204.5%22%20r%3D%2217.17%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.171%22/%3E%3Ccircle%20cx%3D%22116.5%22%20cy%3D%22332.9%22%20r%3D%2217.39%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.164%22/%3E%3Ccircle%20cx%3D%22510.7%22%20cy%3D%22520.3%22%20r%3D%2217.31%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.169%22/%3E%3Ccircle%20cx%3D%22346.6%22%20cy%3D%22117.5%22%20r%3D%2217.08%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.211%22/%3E%3Ccircle%20cx%3D%22195.5%22%20cy%3D%22523.7%22%20r%3D%2217.40%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.224%22/%3E%3Ccircle%20cx%3D%22581.3%22%20cy%3D%22326.3%22%20r%3D%2217.07%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.172%22/%3E%3Ccircle%20cx%3D%22167.2%22%20cy%3D%22214.1%22%20r%3D%2217.26%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.219%22/%3E%3Ccircle%20cx%3D%22393.0%22%20cy%3D%22573.7%22%20r%3D%2217.59%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.225%22/%3E%3Ccircle%20cx%3D%22468.7%22%20cy%3D%22157.2%22%20r%3D%2217.51%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.219%22/%3E%3Ccircle%20cx%3D%22132.2%22%20cy%3D%22412.0%22%20r%3D%2216.77%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.214%22/%3E%3Ccircle%20cx%3D%22552.5%22%20cy%3D%22451.4%22%20r%3D%2217.52%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.178%22/%3E%3Ccircle%20cx%3D%22269.8%22%20cy%3D%22140.0%22%20r%3D%2216.90%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.192%22/%3E%3Ccircle%20cx%3D%22267.3%22%20cy%3D%22559.0%22%20r%3D%2216.70%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.180%22/%3E%3Ccircle%20cx%3D%22552.1%22%20cy%3D%22251.8%22%20r%3D%2216.61%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.195%22/%3E%3Ccircle%20cx%3D%22137.8%22%20cy%3D%22286.8%22%20r%3D%2216.58%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.187%22/%3E%3Ccircle%20cx%3D%22463.8%22%20cy%3D%22539.9%22%20r%3D%2216.97%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.167%22/%3E%3Ccircle%20cx%3D%22394.1%22%20cy%3D%22134.5%22%20r%3D%2216.99%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.205%22/%3E%3Ccircle%20cx%3D%22172.0%22%20cy%3D%22479.1%22%20r%3D%2217.51%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.168%22/%3E%3Ccircle%20cx%3D%22568.5%22%20cy%3D%22375.1%22%20r%3D%2216.69%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.232%22/%3E%3Ccircle%20cx%3D%22207.6%22%20cy%3D%22185.9%22%20r%3D%2216.67%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.238%22/%3E%3Ccircle%20cx%3D%22344.2%22%20cy%3D%22567.2%22%20r%3D%2217.29%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.193%22/%3E%3Ccircle%20cx%3D%22500.4%22%20cy%3D%22194.4%22%20r%3D%2216.88%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.218%22/%3E%3Ccircle%20cx%3D%22134.7%22%20cy%3D%22363.1%22%20r%3D%2216.69%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.240%22/%3E%3Ccircle%20cx%3D%22517.6%22%20cy%3D%22485.7%22%20r%3D%2217.28%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.207%22/%3E%3Ccircle%20cx%3D%22318.4%22%20cy%3D%22138.7%22%20r%3D%2217.28%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.206%22/%3E%3Ccircle%20cx%3D%22230.6%22%20cy%3D%22527.2%22%20r%3D%2217.33%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.220%22/%3E%3Ccircle%20cx%3D%22557.7%22%20cy%3D%22300.1%22%20r%3D%2217.25%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.224%22/%3E%3Ccircle%20cx%3D%22168.2%22%20cy%3D%22249.3%22%20r%3D%2216.76%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.240%22/%3E%3Ccircle%20cx%3D%22416.1%22%20cy%3D%22547.1%22%20r%3D%2216.70%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.244%22/%3E%3Ccircle%20cx%3D%22433.8%22%20cy%3D%22161.5%22%20r%3D%2217.55%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.222%22/%3E%3Ccircle%20cx%3D%22160.9%22%20cy%3D%22432.4%22%20r%3D%2217.16%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.222%22/%3E%3Ccircle%20cx%3D%22545.1%22%20cy%3D%22417.0%22%20r%3D%2217.08%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.233%22/%3E%3Ccircle%20cx%3D%22252.4%22%20cy%3D%22170.7%22%20r%3D%2216.69%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.186%22/%3E%3Ccircle%20cx%3D%22300.9%22%20cy%3D%22548.2%22%20r%3D%2216.95%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.193%22/%3E%3Ccircle%20cx%3D%22520.1%22%20cy%3D%22237.1%22%20r%3D%2216.63%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.182%22/%3E%3Ccircle%20cx%3D%22152.3%22%20cy%3D%22319.0%22%20r%3D%2217.11%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.194%22/%3E%3Ccircle%20cx%3D%22474.8%22%20cy%3D%22506.4%22%20r%3D%2217.50%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.250%22/%3E%3Ccircle%20cx%3D%22363.5%22%20cy%3D%22152.1%22%20r%3D%2217.14%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.237%22/%3E%3Ccircle%20cx%3D%22206.4%22%20cy%3D%22486.8%22%20r%3D%2217.10%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.255%22/%3E%3Ccircle%20cx%3D%22548.3%22%20cy%3D%22346.1%22%20r%3D%2216.86%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.183%22/%3E%3Ccircle%20cx%3D%22203.5%22%20cy%3D%22220.9%22%20r%3D%2217.17%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.250%22/%3E%3Ccircle%20cx%3D%22370.9%22%20cy%3D%22544.1%22%20r%3D%2216.77%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.192%22/%3E%3Ccircle%20cx%3D%22465.2%22%20cy%3D%22193.6%22%20r%3D%2217.28%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.209%22/%3E%3Ccircle%20cx%3D%22160.3%22%20cy%3D%22387.4%22%20r%3D%2217.20%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.190%22/%3E%3Ccircle%20cx%3D%22515.1%22%20cy%3D%22450.6%22%20r%3D%2217.42%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.222%22/%3E%3Ccircle%20cx%3D%22296.8%22%20cy%3D%22166.6%22%20r%3D%2217.17%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.196%22/%3E%3Ccircle%20cx%3D%22265.3%22%20cy%3D%22521.2%22%20r%3D%2216.96%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.203%22/%3E%3Ccircle%20cx%3D%22528.1%22%20cy%3D%22281.0%22%20r%3D%2217.51%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.256%22/%3E%3Ccircle%20cx%3D%22178.4%22%20cy%3D%22283.1%22%20r%3D%2216.91%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.256%22/%3E%3Ccircle%20cx%3D%22431.3%22%20cy%3D%22515.3%22%20r%3D%2217.24%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.262%22/%3E%3Ccircle%20cx%3D%22401.2%22%20cy%3D%22175.0%22%20r%3D%2217.52%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.239%22/%3E%3Ccircle%20cx%3D%22194.1%22%20cy%3D%22444.5%22%20r%3D%2217.21%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.243%22/%3E%3Ccircle%20cx%3D%22528.8%22%20cy%3D%22385.7%22%20r%3D%2216.69%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.246%22/%3E%3Ccircle%20cx%3D%22243.7%22%20cy%3D%22204.8%22%20r%3D%2217.09%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.229%22/%3E%3Ccircle%20cx%3D%22330.4%22%20cy%3D%22528.9%22%20r%3D%2216.78%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.249%22/%3E%3Ccircle%20cx%3D%22485.3%22%20cy%3D%22231.4%22%20r%3D%2216.61%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.227%22/%3E%3Ccircle%20cx%3D%22174.8%22%20cy%3D%22346.2%22%20r%3D%2216.69%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.212%22/%3E%3Ccircle%20cx%3D%22476.6%22%20cy%3D%22471.2%22%20r%3D%2216.72%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.253%22/%3E%3Ccircle%20cx%3D%22338.6%22%20cy%3D%22177.1%22%20r%3D%2216.60%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.240%22/%3E%3Ccircle%20cx%3D%22241.6%22%20cy%3D%22485.2%22%20r%3D%2217.10%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.192%22/%3E%3Ccircle%20cx%3D%22521.3%22%20cy%3D%22323.5%22%20r%3D%2216.91%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.260%22/%3E%3Ccircle%20cx%3D%22208.8%22%20cy%3D%22255.8%22%20r%3D%2216.66%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.260%22/%3E%3Ccircle%20cx%3D%22390.5%22%20cy%3D%22514.8%22%20r%3D%2217.33%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.252%22/%3E%3Ccircle%20cx%3D%22431.0%22%20cy%3D%22202.1%22%20r%3D%2217.63%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.210%22/%3E%3Ccircle%20cx%3D%22191.4%22%20cy%3D%22404.0%22%20r%3D%2217.48%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.229%22/%3E%3Ccircle%20cx%3D%22503.5%22%20cy%3D%22417.3%22%20r%3D%2217.08%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.203%22/%3E%3Ccircle%20cx%3D%22283.4%22%20cy%3D%22199.2%22%20r%3D%2217.00%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.264%22/%3E%3Ccircle%20cx%3D%22297.2%22%20cy%3D%22506.2%22%20r%3D%2216.99%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.234%22/%3E%3Ccircle%20cx%3D%22494.4%22%20cy%3D%22270.5%22%20r%3D%2217.14%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.230%22/%3E%3Ccircle%20cx%3D%22197.2%22%20cy%3D%22312.9%22%20r%3D%2216.89%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.238%22/%3E%3Ccircle%20cx%3D%22437.6%22%20cy%3D%22480.6%22%20r%3D%2217.04%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.237%22/%3E%3Ccircle%20cx%3D%22373.3%22%20cy%3D%22196.6%22%20r%3D%2217.33%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.232%22/%3E%3Ccircle%20cx%3D%22229.2%22%20cy%3D%22447.4%22%20r%3D%2217.05%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.231%22/%3E%3Ccircle%20cx%3D%22504.9%22%20cy%3D%22359.8%22%20r%3D%2216.81%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.202%22/%3E%3Ccircle%20cx%3D%22244.3%22%20cy%3D%22240.1%22%20r%3D%2216.85%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.233%22/%3E%3Ccircle%20cx%3D%22353.7%22%20cy%3D%22502.4%22%20r%3D%2217.14%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.217%22/%3E%3Ccircle%20cx%3D%22450.2%22%20cy%3D%22235.1%22%20r%3D%2216.75%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.236%22/%3E%3Ccircle%20cx%3D%22203.6%22%20cy%3D%22366.5%22%20r%3D%2217.25%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.218%22/%3E%3Ccircle%20cx%3D%22469.1%22%20cy%3D%22436.7%22%20r%3D%2217.04%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.222%22/%3E%3Ccircle%20cx%3D%22321.2%22%20cy%3D%22207.8%22%20r%3D%2217.00%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.234%22/%3E%3Ccircle%20cx%3D%22275.1%22%20cy%3D%22474.3%22%20r%3D%2217.32%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.213%22/%3E%3Ccircle%20cx%3D%22489.2%22%20cy%3D%22308.9%22%20r%3D%2216.61%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.248%22/%3E%3Ccircle%20cx%3D%22223.2%22%20cy%3D%22288.0%22%20r%3D%2216.83%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.242%22/%3E%3Ccircle%20cx%3D%22401.7%22%20cy%3D%22481.4%22%20r%3D%2216.75%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.261%22/%3E%3Ccircle%20cx%3D%22400.2%22%20cy%3D%22219.4%22%20r%3D%2217.54%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.259%22/%3E%3Ccircle%20cx%3D%22225.8%22%20cy%3D%22411.9%22%20r%3D%2216.86%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.276%22/%3E%3Ccircle%20cx%3D%22483.4%22%20cy%3D%22388.3%22%20r%3D%2217.41%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.289%22/%3E%3Ccircle%20cx%3D%22279.0%22%20cy%3D%22234.2%22%20r%3D%2216.84%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.236%22/%3E%3Ccircle%20cx%3D%22324.1%22%20cy%3D%22483.4%22%20r%3D%2217.24%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.242%22/%3E%3Ccircle%20cx%3D%22459.2%22%20cy%3D%22269.2%22%20r%3D%2216.63%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.249%22/%3E%3Ccircle%20cx%3D%22223.2%22%20cy%3D%22336.7%22%20r%3D%2217.20%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.220%22/%3E%3Ccircle%20cx%3D%22434.5%22%20cy%3D%22445.5%22%20r%3D%2217.29%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.221%22/%3E%3Ccircle%20cx%3D%22352.1%22%20cy%3D%22224.8%22%20r%3D%2217.08%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.236%22/%3E%3Ccircle%20cx%3D%22263.9%22%20cy%3D%22440.9%22%20r%3D%2216.78%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.299%22/%3E%3Ccircle%20cx%3D%22474.9%22%20cy%3D%22341.2%22%20r%3D%2216.93%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.259%22/%3E%3Ccircle%20cx%3D%22256.1%22%20cy%3D%22275.5%22%20r%3D%2217.57%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.227%22/%3E%3Ccircle%20cx%3D%22368.9%22%20cy%3D%22468.4%22%20r%3D%2217.37%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.275%22/%3E%3Ccircle%20cx%3D%22415.1%22%20cy%3D%22251.4%22%20r%3D%2216.66%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.249%22/%3E%3Ccircle%20cx%3D%22236.8%22%20cy%3D%22378.4%22%20r%3D%2216.69%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.258%22/%3E%3Ccircle%20cx%3D%22452.6%22%20cy%3D%22405.5%22%20r%3D%2217.14%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.289%22/%3E%3Ccircle%20cx%3D%22313.1%22%20cy%3D%22243.3%22%20r%3D%2216.76%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.288%22/%3E%3Ccircle%20cx%3D%22305.2%22%20cy%3D%22453.6%22%20r%3D%2217.46%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.273%22/%3E%3Ccircle%20cx%3D%22453.0%22%20cy%3D%22303.9%22%20r%3D%2216.96%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.262%22/%3E%3Ccircle%20cx%3D%22252.9%22%20cy%3D%22317.7%22%20r%3D%2217.04%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.292%22/%3E%3Ccircle%20cx%3D%22399.8%22%20cy%3D%22439.4%22%20r%3D%2216.86%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.249%22/%3E%3Ccircle%20cx%3D%22373.0%22%20cy%3D%22253.2%22%20r%3D%2217.58%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.241%22/%3E%3Ccircle%20cx%3D%22267.6%22%20cy%3D%22405.8%22%20r%3D%2217.32%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.239%22/%3E%3Ccircle%20cx%3D%22448.5%22%20cy%3D%22364.5%22%20r%3D%2216.67%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.293%22/%3E%3Ccircle%20cx%3D%22291.3%22%20cy%3D%22277.9%22%20r%3D%2216.91%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.289%22/%3E%3Ccircle%20cx%3D%22344.6%22%20cy%3D%22442.8%22%20r%3D%2217.50%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.311%22/%3E%3Ccircle%20cx%3D%22415.3%22%20cy%3D%22286.6%22%20r%3D%2217.07%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.312%22/%3E%3Ccircle%20cx%3D%22260.9%22%20cy%3D%22352.6%22%20r%3D%2217.63%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.244%22/%3E%3Ccircle%20cx%3D%22417.5%22%20cy%3D%22408.3%22%20r%3D%2216.99%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.320%22/%3E%3Ccircle%20cx%3D%22340.1%22%20cy%3D%22265.9%22%20r%3D%2216.93%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.272%22/%3E%3Ccircle%20cx%3D%22300.5%22%20cy%3D%22418.6%22%20r%3D%2216.66%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.299%22/%3E%3Ccircle%20cx%3D%22432.9%22%20cy%3D%22332.8%22%20r%3D%2217.30%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.325%22/%3E%3Ccircle%20cx%3D%22287.9%22%20cy%3D%22313.0%22%20r%3D%2217.19%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.255%22/%3E%3Ccircle%20cx%3D%22370.8%22%20cy%3D%22419.3%22%20r%3D%2216.88%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.271%22/%3E%3Ccircle%20cx%3D%22378.8%22%20cy%3D%22290.3%22%20r%3D%2217.11%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.331%22/%3E%3Ccircle%20cx%3D%22288.5%22%20cy%3D%22374.5%22%20r%3D%2217.41%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.301%22/%3E%3Ccircle%20cx%3D%22411.9%22%20cy%3D%22373.5%22%20r%3D%2217.07%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.308%22/%3E%3Ccircle%20cx%3D%22323.2%22%20cy%3D%22296.9%22%20r%3D%2217.44%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.272%22/%3E%3Ccircle%20cx%3D%22333.9%22%20cy%3D%22407.3%22%20r%3D%2217.48%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.271%22/%3E%3Ccircle%20cx%3D%22400.6%22%20cy%3D%22318.7%22%20r%3D%2216.66%22%20fill%3D%22%23c9820a%22%20fill-opacity%3D%220.300%22/%3E%3Ccircle%20cx%3D%22307.8%22%20cy%3D%22342.0%22%20r%3D%2217.44%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.327%22/%3E%3Ccircle%20cx%3D%22375.7%22%20cy%3D%22384.4%22%20r%3D%2217.25%22%20fill%3D%22%23a86a20%22%20fill-opacity%3D%220.334%22/%3E%3Ccircle%20cx%3D%22353.5%22%20cy%3D%22314.9%22%20r%3D%2217.00%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.331%22/%3E%3Ccircle%20cx%3D%22323.7%22%20cy%3D%22373.5%22%20r%3D%2216.88%22%20fill%3D%22%23d99a3e%22%20fill-opacity%3D%220.353%22/%3E%3Ccircle%20cx%3D%22385.3%22%20cy%3D%22350.4%22%20r%3D%2217.43%22%20fill%3D%22%23e8a33d%22%20fill-opacity%3D%220.294%22/%3E%3C/svg%3E"),
+        linear-gradient(160deg, #fdf3e0 0%, #fbf8ea 35%, #f2f8ef 70%, #eaf5e9 100%);
+    background-repeat: no-repeat, no-repeat;
+    background-position: bottom -110px right -110px, center;
+    background-size: 820px 820px, cover;
+    background-attachment: fixed, fixed;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.panel {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    backdrop-filter: blur(14px);
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 36px;
+    position: relative;
+}
+
+header h1 {
+    font-size: 2.4em;
+    font-weight: 800;
+    background: linear-gradient(120deg, var(--accent) 0%, var(--accent-2) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: 0.5px;
+}
+
+header p {
+    color: var(--text-dim);
+    margin-top: 8px;
+    font-size: 1.05em;
+}
+
+.intro-wrap {
+    position: relative;
+    max-width: 760px;
+    margin: 28px auto 0;
+    padding-top: 22px;
+}
+
+.intro-wrap::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 52px;
+    height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(120deg, var(--accent) 0%, var(--accent-2) 100%);
+}
+
+header p.intro {
+    font-size: 1.08em;
+    line-height: 1.7;
+    color: var(--text-dim);
+    margin: 0;
+}
+
+header p.intro strong {
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+.main-grid {
+    display: grid;
+    grid-template-columns: 2.3fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+    /* Grid items default to stretching to the row's full height (the
+       taller sibling), which forced the controls panel as tall as
+       the square canvas even though its own content is shorter —
+       size each panel to its own content instead. */
+    align-items: start;
+}
+
+.canvas-panel {
+    padding: 22px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.canvas-title {
+    width: 100%;
+    max-width: 620px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.95em;
+    color: var(--text-main);
+    margin-bottom: 12px;
+}
+
+.canvas-title strong {
+    color: var(--accent);
+}
+
+#stage {
+    position: relative;
+    width: 100%;
+    max-width: 620px;
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fffdf7;
+    box-shadow: inset 0 0 0 1px var(--panel-border);
+}
+
+#stage canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.controls-panel {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.field-group label {
+    display: block;
+    font-size: 0.85em;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 8px;
+}
+
+.switch-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.switch-row label {
+    font-size: 0.85em;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+/* An iOS/iPadOS-style on/off switch — a pill track that slides a
+   knob between the two ends, rather than a labeled button group,
+   since this is a plain binary toggle rather than a choice among
+   named options (see the field-size/speed pill-toggles for that). */
+.switch {
+    position: relative;
+    width: 46px;
+    height: 26px;
+    flex-shrink: 0;
+    border: none;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.18);
+    cursor: pointer;
+    padding: 0;
+    transition: background-color 0.2s ease;
+}
+
+.switch::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+    transition: transform 0.2s ease;
+}
+
+.switch[aria-checked="true"] {
+    background: var(--accent);
+}
+
+.switch[aria-checked="true"]::before {
+    transform: translateX(20px);
+}
+
+.angle-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.angle-label-row label {
+    margin-bottom: 0;
+}
+
+.angle-number {
+    width: 104px;
+    padding: 6px 8px;
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    background: white;
+    color: var(--accent);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    font-size: 0.95em;
+}
+
+.angle-number:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+}
+
+input[type="range"] {
+    width: 100%;
+    accent-color: var(--accent);
+}
+
+.angle-presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.angle-presets button {
+    background: rgba(0, 0, 0, 0.06);
+    border: none;
+    color: var(--text-dim);
+    font-size: 0.78em;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.angle-presets button:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: var(--text-main);
+}
+
+.angle-presets button.active {
+    background: var(--accent);
+    color: white;
+}
+
+input[type="range"]:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+}
+
+
+.grow-button {
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 1em;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    background: linear-gradient(120deg, var(--accent) 0%, var(--accent-2) 100%);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.grow-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+.grow-button:active {
+    transform: translateY(0);
+}
+
+.pill-toggle {
+    display: inline-flex;
+    background: rgba(0, 0, 0, 0.06);
+    border-radius: 999px;
+    padding: 3px;
+    gap: 2px;
+}
+
+/* The field-size/speed toggles (unlike the footer's language toggle)
+   sit alone in their own settings row, so stretch them to fill it —
+   each option getting an equal share — instead of just hugging
+   their text width. */
+.field-group .pill-toggle {
+    display: flex;
+    width: 100%;
+}
+
+.field-group .pill-toggle button {
+    flex: 1;
+}
+
+.pill-toggle button {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    font-size: 0.8em;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.pill-toggle button:hover {
+    color: var(--text-main);
+}
+
+.pill-toggle button[aria-pressed="true"] {
+    background: white;
+    color: var(--accent);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+footer {
+    text-align: center;
+    margin-top: 36px;
+    padding-top: 22px;
+    border-top: 1px solid var(--panel-border);
+    color: var(--text-dim);
+    font-size: 0.85em;
+}
+
+footer .pill-toggle {
+    margin-bottom: 12px;
+}
+
+footer a {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+footer a.source-link svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+    vertical-align: -2px;
+    margin-right: 3px;
+}
+
+@media screen and (max-width: 860px) {
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    header h1 {
+        font-size: 1.8em;
+    }
+}

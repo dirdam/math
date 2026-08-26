@@ -1,0 +1,551 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --accent: #33363b;
+    --accent-2: #e8631c;
+    --accent-mid: #8e4d2c;
+    --panel-bg: rgba(255, 255, 255, 0.66);
+    --panel-border: rgba(0, 0, 0, 0.12);
+    --text-main: #262626;
+    --text-dim: #5a5a5a;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    color: var(--text-main);
+    padding: 40px 20px;
+    overflow-x: hidden;
+    /* A light asphalt wash, plus a faint diagonal filmstrip —
+       sprocket holes and empty picture frames, transparent
+       cutouts (not colored overlays, so the wash shows through
+       exactly) — evoking the "camera/frame-rate" side of the
+       stroboscopic effect without literally repeating the wheel
+       motif used everywhere else in this app. Distinct from
+       phyllotaxis's scattered corner medallion and predator-prey's
+       smooth wave bands. */
+    background-image:
+        url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%221600%22%20height%3D%221000%22%20viewBox%3D%220%200%201600%201000%22%3E%3Cg%20transform%3D%22translate%28800.0%20500.0%29%20rotate%28-18%29%22%3E%3Cpath%20d%3D%22M-1150.0%2C-95.0%20H1150.0%20V95.0%20H-1150.0%20Z%20M-1024.0%2C-52.0%20H-896.0%20V52.0%20H-1024.0%20Z%20M-832.0%2C-52.0%20H-704.0%20V52.0%20H-832.0%20Z%20M-640.0%2C-52.0%20H-512.0%20V52.0%20H-640.0%20Z%20M-448.0%2C-52.0%20H-320.0%20V52.0%20H-448.0%20Z%20M-256.0%2C-52.0%20H-128.0%20V52.0%20H-256.0%20Z%20M-64.0%2C-52.0%20H64.0%20V52.0%20H-64.0%20Z%20M128.0%2C-52.0%20H256.0%20V52.0%20H128.0%20Z%20M320.0%2C-52.0%20H448.0%20V52.0%20H320.0%20Z%20M512.0%2C-52.0%20H640.0%20V52.0%20H512.0%20Z%20M704.0%2C-52.0%20H832.0%20V52.0%20H704.0%20Z%20M896.0%2C-52.0%20H1024.0%20V52.0%20H896.0%20Z%20M-1110.5%2C-75.0%20H-1097.5%20V-56.0%20H-1110.5%20Z%20M-1110.5%2C56.0%20H-1097.5%20V75.0%20H-1110.5%20Z%20M-1062.5%2C-75.0%20H-1049.5%20V-56.0%20H-1062.5%20Z%20M-1062.5%2C56.0%20H-1049.5%20V75.0%20H-1062.5%20Z%20M-1014.5%2C-75.0%20H-1001.5%20V-56.0%20H-1014.5%20Z%20M-1014.5%2C56.0%20H-1001.5%20V75.0%20H-1014.5%20Z%20M-966.5%2C-75.0%20H-953.5%20V-56.0%20H-966.5%20Z%20M-966.5%2C56.0%20H-953.5%20V75.0%20H-966.5%20Z%20M-918.5%2C-75.0%20H-905.5%20V-56.0%20H-918.5%20Z%20M-918.5%2C56.0%20H-905.5%20V75.0%20H-918.5%20Z%20M-870.5%2C-75.0%20H-857.5%20V-56.0%20H-870.5%20Z%20M-870.5%2C56.0%20H-857.5%20V75.0%20H-870.5%20Z%20M-822.5%2C-75.0%20H-809.5%20V-56.0%20H-822.5%20Z%20M-822.5%2C56.0%20H-809.5%20V75.0%20H-822.5%20Z%20M-774.5%2C-75.0%20H-761.5%20V-56.0%20H-774.5%20Z%20M-774.5%2C56.0%20H-761.5%20V75.0%20H-774.5%20Z%20M-726.5%2C-75.0%20H-713.5%20V-56.0%20H-726.5%20Z%20M-726.5%2C56.0%20H-713.5%20V75.0%20H-726.5%20Z%20M-678.5%2C-75.0%20H-665.5%20V-56.0%20H-678.5%20Z%20M-678.5%2C56.0%20H-665.5%20V75.0%20H-678.5%20Z%20M-630.5%2C-75.0%20H-617.5%20V-56.0%20H-630.5%20Z%20M-630.5%2C56.0%20H-617.5%20V75.0%20H-630.5%20Z%20M-582.5%2C-75.0%20H-569.5%20V-56.0%20H-582.5%20Z%20M-582.5%2C56.0%20H-569.5%20V75.0%20H-582.5%20Z%20M-534.5%2C-75.0%20H-521.5%20V-56.0%20H-534.5%20Z%20M-534.5%2C56.0%20H-521.5%20V75.0%20H-534.5%20Z%20M-486.5%2C-75.0%20H-473.5%20V-56.0%20H-486.5%20Z%20M-486.5%2C56.0%20H-473.5%20V75.0%20H-486.5%20Z%20M-438.5%2C-75.0%20H-425.5%20V-56.0%20H-438.5%20Z%20M-438.5%2C56.0%20H-425.5%20V75.0%20H-438.5%20Z%20M-390.5%2C-75.0%20H-377.5%20V-56.0%20H-390.5%20Z%20M-390.5%2C56.0%20H-377.5%20V75.0%20H-390.5%20Z%20M-342.5%2C-75.0%20H-329.5%20V-56.0%20H-342.5%20Z%20M-342.5%2C56.0%20H-329.5%20V75.0%20H-342.5%20Z%20M-294.5%2C-75.0%20H-281.5%20V-56.0%20H-294.5%20Z%20M-294.5%2C56.0%20H-281.5%20V75.0%20H-294.5%20Z%20M-246.5%2C-75.0%20H-233.5%20V-56.0%20H-246.5%20Z%20M-246.5%2C56.0%20H-233.5%20V75.0%20H-246.5%20Z%20M-198.5%2C-75.0%20H-185.5%20V-56.0%20H-198.5%20Z%20M-198.5%2C56.0%20H-185.5%20V75.0%20H-198.5%20Z%20M-150.5%2C-75.0%20H-137.5%20V-56.0%20H-150.5%20Z%20M-150.5%2C56.0%20H-137.5%20V75.0%20H-150.5%20Z%20M-102.5%2C-75.0%20H-89.5%20V-56.0%20H-102.5%20Z%20M-102.5%2C56.0%20H-89.5%20V75.0%20H-102.5%20Z%20M-54.5%2C-75.0%20H-41.5%20V-56.0%20H-54.5%20Z%20M-54.5%2C56.0%20H-41.5%20V75.0%20H-54.5%20Z%20M-6.5%2C-75.0%20H6.5%20V-56.0%20H-6.5%20Z%20M-6.5%2C56.0%20H6.5%20V75.0%20H-6.5%20Z%20M41.5%2C-75.0%20H54.5%20V-56.0%20H41.5%20Z%20M41.5%2C56.0%20H54.5%20V75.0%20H41.5%20Z%20M89.5%2C-75.0%20H102.5%20V-56.0%20H89.5%20Z%20M89.5%2C56.0%20H102.5%20V75.0%20H89.5%20Z%20M137.5%2C-75.0%20H150.5%20V-56.0%20H137.5%20Z%20M137.5%2C56.0%20H150.5%20V75.0%20H137.5%20Z%20M185.5%2C-75.0%20H198.5%20V-56.0%20H185.5%20Z%20M185.5%2C56.0%20H198.5%20V75.0%20H185.5%20Z%20M233.5%2C-75.0%20H246.5%20V-56.0%20H233.5%20Z%20M233.5%2C56.0%20H246.5%20V75.0%20H233.5%20Z%20M281.5%2C-75.0%20H294.5%20V-56.0%20H281.5%20Z%20M281.5%2C56.0%20H294.5%20V75.0%20H281.5%20Z%20M329.5%2C-75.0%20H342.5%20V-56.0%20H329.5%20Z%20M329.5%2C56.0%20H342.5%20V75.0%20H329.5%20Z%20M377.5%2C-75.0%20H390.5%20V-56.0%20H377.5%20Z%20M377.5%2C56.0%20H390.5%20V75.0%20H377.5%20Z%20M425.5%2C-75.0%20H438.5%20V-56.0%20H425.5%20Z%20M425.5%2C56.0%20H438.5%20V75.0%20H425.5%20Z%20M473.5%2C-75.0%20H486.5%20V-56.0%20H473.5%20Z%20M473.5%2C56.0%20H486.5%20V75.0%20H473.5%20Z%20M521.5%2C-75.0%20H534.5%20V-56.0%20H521.5%20Z%20M521.5%2C56.0%20H534.5%20V75.0%20H521.5%20Z%20M569.5%2C-75.0%20H582.5%20V-56.0%20H569.5%20Z%20M569.5%2C56.0%20H582.5%20V75.0%20H569.5%20Z%20M617.5%2C-75.0%20H630.5%20V-56.0%20H617.5%20Z%20M617.5%2C56.0%20H630.5%20V75.0%20H617.5%20Z%20M665.5%2C-75.0%20H678.5%20V-56.0%20H665.5%20Z%20M665.5%2C56.0%20H678.5%20V75.0%20H665.5%20Z%20M713.5%2C-75.0%20H726.5%20V-56.0%20H713.5%20Z%20M713.5%2C56.0%20H726.5%20V75.0%20H713.5%20Z%20M761.5%2C-75.0%20H774.5%20V-56.0%20H761.5%20Z%20M761.5%2C56.0%20H774.5%20V75.0%20H761.5%20Z%20M809.5%2C-75.0%20H822.5%20V-56.0%20H809.5%20Z%20M809.5%2C56.0%20H822.5%20V75.0%20H809.5%20Z%20M857.5%2C-75.0%20H870.5%20V-56.0%20H857.5%20Z%20M857.5%2C56.0%20H870.5%20V75.0%20H857.5%20Z%20M905.5%2C-75.0%20H918.5%20V-56.0%20H905.5%20Z%20M905.5%2C56.0%20H918.5%20V75.0%20H905.5%20Z%20M953.5%2C-75.0%20H966.5%20V-56.0%20H953.5%20Z%20M953.5%2C56.0%20H966.5%20V75.0%20H953.5%20Z%20M1001.5%2C-75.0%20H1014.5%20V-56.0%20H1001.5%20Z%20M1001.5%2C56.0%20H1014.5%20V75.0%20H1001.5%20Z%20M1049.5%2C-75.0%20H1062.5%20V-56.0%20H1049.5%20Z%20M1049.5%2C56.0%20H1062.5%20V75.0%20H1049.5%20Z%20M1097.5%2C-75.0%20H1110.5%20V-56.0%20H1097.5%20Z%20M1097.5%2C56.0%20H1110.5%20V75.0%20H1097.5%20Z%22%20fill%3D%22%232b2f33%22%20fill-opacity%3D%220.10%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"),
+        linear-gradient(160deg, #eceef0 0%, #e4e6e8 40%, #d8dadd 75%, #ccd0d4 100%);
+    background-repeat: no-repeat, no-repeat;
+    background-position: center, center;
+    background-size: cover, cover;
+    background-attachment: fixed, fixed;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.panel {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    backdrop-filter: blur(14px);
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+.how-to-interpret {
+    padding: 22px 24px;
+    margin-bottom: 24px;
+}
+
+.how-to-interpret h2 {
+    font-size: 1em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent);
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.how-to-interpret p {
+    color: var(--text-dim);
+    line-height: 1.6;
+    font-size: 0.95em;
+}
+
+.how-to-interpret p + p {
+    margin-top: 10px;
+}
+
+.how-to-interpret p strong {
+    color: var(--text-main);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 36px;
+    position: relative;
+}
+
+header h1 {
+    font-size: 2.4em;
+    font-weight: 800;
+    background: linear-gradient(120deg, var(--accent) 0%, var(--accent-2) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: 0.5px;
+}
+
+header p {
+    color: var(--text-dim);
+    margin-top: 8px;
+    font-size: 1.05em;
+}
+
+.intro-wrap {
+    position: relative;
+    max-width: 760px;
+    margin: 28px auto 0;
+    padding-top: 22px;
+}
+
+.intro-wrap::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 52px;
+    height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(120deg, var(--accent) 0%, var(--accent-2) 100%);
+}
+
+header p.intro {
+    font-size: 1.08em;
+    line-height: 1.7;
+    color: var(--text-dim);
+    margin: 0;
+}
+
+header p.intro strong {
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+.main-grid {
+    display: grid;
+    grid-template-columns: 1.8fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+    align-items: start;
+}
+
+.canvas-panel {
+    padding: 22px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* Chart-specific colors, scoped to just this subtree (matching the
+   established dark-mode chart-scoping convention) — the rest of
+   this app's chrome stays light-only, this subtree alone adapts
+   to OS dark mode. */
+.viz-root {
+    color-scheme: light;
+    --surface-1: #fffdf9;
+    --ink-primary: #1a1a1a;
+    --ink-secondary: #52514e;
+    --ink-muted: #8c8a84;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+        color-scheme: dark;
+        --surface-1: #1c1c1a;
+        --ink-primary: #ffffff;
+        --ink-secondary: #c3c2b7;
+        --ink-muted: #8c8a84;
+    }
+}
+
+:root[data-theme="dark"] .viz-root {
+    color-scheme: dark;
+    --surface-1: #1c1c1a;
+    --ink-primary: #ffffff;
+    --ink-secondary: #c3c2b7;
+    --ink-muted: #8c8a84;
+}
+
+
+.wheel-readout {
+    text-align: center;
+    font-size: 0.85em;
+    font-weight: 700;
+    color: var(--ink-secondary);
+}
+
+.wheel-readout strong {
+    color: var(--ink-primary);
+    font-variant-numeric: tabular-nums;
+}
+
+.wheel-row {
+    display: flex;
+    gap: 20px;
+}
+
+.wheel-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.chart-caption {
+    font-size: 0.8em;
+    font-weight: 700;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    text-align: center;
+}
+
+.chart-stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--surface-1);
+    box-shadow: inset 0 0 0 1px var(--panel-border);
+}
+
+.chart-stage canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.flash-overlay {
+    position: absolute;
+    inset: 0;
+    background: white;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.controls-panel {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.field-group label {
+    display: block;
+    font-size: 0.85em;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 8px;
+}
+
+.field-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.field-label-row label {
+    margin-bottom: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.field-icon {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    color: var(--accent-2);
+}
+
+.field-number {
+    width: 84px;
+    padding: 6px 8px;
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    background: white;
+    color: var(--accent);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    font-size: 0.95em;
+}
+
+.field-number:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+}
+
+.field-hint {
+    font-size: 0.75em;
+    color: var(--text-dim);
+    margin-top: 6px;
+}
+
+/* Every slider shares one custom-built look: a plain gray track,
+   with a colored fill from the left edge up to the thumb, computed
+   and set as an inline background by updateSliderTrack(). Thumbs
+   are always the same neutral --accent-mid, matching the number
+   field's own accent-driven look elsewhere in this family. */
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 999px;
+    background: #d9d9d9;
+    outline: none;
+    cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent-mid);
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent-mid);
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+input[type="range"]::-moz-range-track {
+    height: 6px;
+    border-radius: 999px;
+    background: transparent;
+}
+
+input[type="range"]:focus {
+    outline: 2px solid var(--text-dim);
+    outline-offset: 2px;
+}
+
+.preset-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.preset-buttons button {
+    flex: 1;
+    min-width: 0;
+    background: rgba(0, 0, 0, 0.06);
+    border: none;
+    color: var(--text-dim);
+    font-size: 0.78em;
+    font-weight: 700;
+    padding: 6px 8px;
+    border-radius: 999px;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.preset-buttons button:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: var(--text-main);
+}
+
+.preset-buttons button.active {
+    background: var(--accent);
+    color: white;
+}
+
+.pill-toggle {
+    display: inline-flex;
+    background: rgba(0, 0, 0, 0.06);
+    border-radius: 999px;
+    padding: 3px;
+    gap: 2px;
+}
+
+.pill-toggle button {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    font-size: 0.8em;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.pill-toggle button:hover {
+    color: var(--text-main);
+}
+
+.pill-toggle button[aria-pressed="true"] {
+    background: white;
+    color: var(--accent);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.switch-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.switch-row label {
+    font-size: 0.85em;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+/* An iOS/iPadOS-style on/off switch — a pill track that slides a
+   knob between the two ends, for a plain binary toggle (as opposed
+   to the preset/language pill-toggles above, which choose among
+   named options). */
+.switch {
+    position: relative;
+    width: 46px;
+    height: 26px;
+    flex-shrink: 0;
+    border: none;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.18);
+    cursor: pointer;
+    padding: 0;
+    transition: background-color 0.2s ease;
+}
+
+.switch::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+    transition: transform 0.2s ease;
+}
+
+.switch[aria-checked="true"] {
+    background: var(--accent);
+}
+
+.switch[aria-checked="true"]::before {
+    transform: translateX(20px);
+}
+
+.transport-row {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 44px;
+    flex: 1;
+    background: linear-gradient(120deg, var(--accent) 0%, var(--accent-2) 100%);
+    color: white;
+    border: none;
+    padding: 0 16px;
+    border-radius: 10px;
+    font-size: 0.9em;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn.secondary {
+    background: rgba(0, 0, 0, 0.07);
+    color: var(--text-main);
+    box-shadow: none;
+    flex: none;
+    width: 44px;
+}
+
+.btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+footer {
+    text-align: center;
+    margin-top: 36px;
+    padding-top: 22px;
+    border-top: 1px solid var(--panel-border);
+    color: var(--text-dim);
+    font-size: 0.85em;
+}
+
+footer .pill-toggle {
+    margin-bottom: 12px;
+}
+
+footer a {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+footer a.source-link svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+    vertical-align: -2px;
+    margin-right: 3px;
+}
+
+@media screen and (max-width: 860px) {
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .wheel-row {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    header h1 {
+        font-size: 1.8em;
+    }
+}
