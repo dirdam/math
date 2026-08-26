@@ -1158,6 +1158,14 @@
         playPauseBtn.addEventListener('click', () => (playing ? pause() : play()));
         resetBtn.addEventListener('click', () => resetSim());
 
+        // Auto-pause when the tab isn't visible, so a forgotten background
+        // tab doesn't keep burning CPU/GPU indefinitely. Deliberately does
+        // NOT auto-resume on return — resuming on its own would be a more
+        // surprising behavior than just staying paused.
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden && playing) pause();
+        });
+
         // --- Boot ------------------------------------------------------------
         applyStaticDict();
         renderPresetButtons();
